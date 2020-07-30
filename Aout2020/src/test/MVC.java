@@ -5,6 +5,7 @@ import modele.Modele;
 import vue.Vue;
 import vue.VueConsole;
 import vue.VueGUI;
+
 	
 	public class MVC {
 			public MVC() {
