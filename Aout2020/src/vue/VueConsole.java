@@ -1,18 +1,17 @@
 package vue;
-import java.util.InputMismatchException;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Scanner;
 
 import controleur.Controleur;
-import modele.Modele;
+import modele.Demarrage;
 
 
 
 public class VueConsole extends Vue implements Observer {
 	protected Scanner sc;
 	
-	public VueConsole(Modele modele,
+	public VueConsole(Demarrage modele,
 			Controleur controleur) {
 		super(modele, controleur);
 		update(null, null);

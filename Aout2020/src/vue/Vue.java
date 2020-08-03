@@ -3,14 +3,14 @@ package vue;
 import java.util.Observer;
 
 import controleur.Controleur;
-import modele.Modele;
+import modele.Demarrage;
 
 public abstract class Vue implements Observer{
 	
-	protected Modele modele;
+	protected Demarrage modele;
 	protected Controleur controleur;
 	
-	protected Vue(Modele modele,
+	protected Vue(Demarrage modele,
 			Controleur controleur) {
 		this.modele = modele;
 		this.controleur = controleur;

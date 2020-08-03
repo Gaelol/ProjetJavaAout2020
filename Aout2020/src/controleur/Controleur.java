@@ -1,12 +1,12 @@
 package controleur;
 
-import modele.Modele;
+import modele.Demarrage;
 import vue.Vue;
 
 public class Controleur {
-	 Modele model; 
+	 Demarrage model; 
 	Vue vue;
-	public Controleur( Modele model) {
+	public Controleur( Demarrage model) {
 		this.model = model;
 	}
 

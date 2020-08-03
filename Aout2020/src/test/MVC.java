@@ -1,8 +1,7 @@
 package test;
 
 	import controleur.Controleur;
-import modele.Modele;
-import vue.Vue;
+import modele.Demarrage;
 import vue.VueConsole;
 import vue.VueGUI;
 
@@ -11,7 +10,7 @@ import vue.VueGUI;
 			public MVC() {
 				//Création du modèle
 				
-				Modele mod = new Modele();
+				Demarrage mod = new Demarrage();
 
 				//Création des contrôleurs : Un pour chaque vue
 				//Chaque contrôleur doit avoir une référence vers le modèle pour pouvoir le commander
