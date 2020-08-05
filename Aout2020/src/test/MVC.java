@@ -10,19 +10,19 @@ import vue.VueGUI;
 			public MVC() {
 				//Création du modèle
 				
-				Demarrage mod = new Demarrage();
+				Demarrage modele = new Demarrage();
 
 				//Création des contrôleurs : Un pour chaque vue
 				//Chaque contrôleur doit avoir une référence vers le modèle pour pouvoir le commander
 				
-				Controleur consoleControleur = new Controleur(mod);
-				Controleur guiControleur = new Controleur(mod);
+				Controleur consoleControleur = new Controleur(modele);
+				Controleur guiControleur = new Controleur(modele);
 				
 				//Création des vues.
 				//Chaque vue doit connaître son contrôleur et avoir une référence vers le modèle pour pouvoir l'observer
 				
-				VueConsole console = new VueConsole(mod, consoleControleur);
-				VueGUI gui = new VueGUI(mod, guiControleur, 0, 0);
+				VueConsole console = new VueConsole(modele, consoleControleur);
+				VueGUI gui = new VueGUI(modele, guiControleur, 100, 100);
 				
 				//On donne la référence à la vue pour chaque contrôleur
 				

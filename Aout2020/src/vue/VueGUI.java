@@ -16,7 +16,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
@@ -26,12 +25,14 @@ import modele.Demarrage;
 
 public class VueGUI extends Vue implements ActionListener {
 	private JFrame frame;
-	private JLabel label,titre;
+	private JLabel titre,label;
 	private JButton button;
 	private JPanel topPanel,midPanel,botPanel,sidePanel,valiPanel;
-	private JButton button1,button2,button3,button4,button5,button6,button7,button8,button9,button10;
+	private JButton tf,button1,button2,button3,button4,button5,button6,button7,button8,button9,button10;
 	private JTextField reponse;
 	private String rep;
+	
+	
 		public VueGUI(Demarrage modele, Controleur controleur,int posX, int posY) {
 			super(modele, controleur);
 			
@@ -52,24 +53,32 @@ public class VueGUI extends Vue implements ActionListener {
 		    container.setBackground(Color.white);
 		    frame.getRootPane().setBorder(new LineBorder(Color.black,2));
 		    
-		    
+		    //Panel Titre
 		    topPanel = new JPanel();
 		    topPanel.setBorder(new LineBorder(Color.black,2));
 		    topPanel.setBackground(Color.white);
 		    topPanel.setLayout(new FlowLayout(3));
 		    container.add(topPanel,BorderLayout.NORTH);
 		    
+		    //Panel Gauche
 		    midPanel = new JPanel();
 		    midPanel.setBorder(new LineBorder(Color.black,2));
 		    midPanel.setBackground(Color.cyan);
 		    midPanel.setLayout(new FlowLayout(4,4,4));
 		    container.add(midPanel,BorderLayout.WEST);
 		    
+		    //Panel Question
 		    valiPanel = new JPanel();
 		    valiPanel.setLayout(new GridLayout(10,10,5,5));
 		    valiPanel.setBorder(new LineBorder(Color.black,2));
 		    valiPanel.setBackground(Color.red);
 		    
+		    //Panel Reponse
+		    botPanel = new JPanel();
+		    botPanel.setLayout(new FlowLayout(2));
+		    botPanel.setBorder(new LineBorder(Color.black,2));
+		    
+		    //JButton
 		    button1 = new JButton("Question 1");
 		    button2 = new JButton("Question 2");
 		    button3 = new JButton("Question 3");
@@ -91,65 +100,57 @@ public class VueGUI extends Vue implements ActionListener {
 		    valiPanel.add(button9);
 		    valiPanel.add(button10);
 		    
-		    label = new JLabel("Démarrer",SwingConstants.CENTER);
+		    //Label Texte
+		    label = new JLabel(modele.avance[modele.question],SwingConstants.CENTER);
 		    label.setFont(new Font("Courier New", Font.BOLD, 30));
 		    label.setOpaque(true);
 		    label.setBorder(new LineBorder(Color.black,2));
-		    label.addMouseListener(new MouseAdapter()  
-		    {  
-		        public void mouseClicked(MouseEvent e)  
-		        {  
-		        	F1();
-		        }
-		        });
-		    reponse = new JTextField("");
+		   
+		    //Texte de la réponse
+		    reponse = new JTextField("",60);
 		    reponse.setFont(new Font("Courier New", Font.BOLD, 30));
-		    rep = reponse.getText();
+		    
+		    //JButton pour la réponse
+		    tf = new JButton("Répondre");
+		    tf.setFont(new Font("Courier New", Font.BOLD, 30));
+		    
+		    
 		    midPanel.add(valiPanel);
 		    container.add(label,BorderLayout.CENTER);
-		    container.add(reponse,BorderLayout.SOUTH);
-		    reponse.setVisible(false);
+		    container.add(botPanel,BorderLayout.SOUTH);
+		    botPanel.add(tf);
+		    botPanel.add(reponse);
 		    container.add(midPanel,BorderLayout.WEST);
 		    topPanel.add(titre);
+		    
 		   //Actions
-		   	
+		    tf.addActionListener(this);
+		    
 		}
 		
-		public void updateFrame() {
-			
-		}
 		
-		public void F1() {
-			label.setText("Simple : Combien font 1 + 1 ?");
-			reponse.setVisible(true);
-		}
-		
-		public void F2() {
-			label.setText("Nice");
-			if(rep == "2") {
-				F2();
-			}
-		}
 
 		@Override
 		public void update(Observable arg0, Object arg1) {
-			updateFrame();
+			affiche(modele.avance[modele.question]);
 			frame.pack();
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			Object source = e.getSource();
-			if(source==button) {
-				F1();
+			if(source==tf) {
+				
+				rep = reponse.getText();
+				controleur.next(rep);
+				
 			}
 			
 		}
 
 		@Override
 		public void affiche(String string) {
-			// TODO Auto-generated method stub
-			
+			label.setText(string);
 		}
 		
 }
