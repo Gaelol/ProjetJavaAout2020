@@ -5,14 +5,14 @@ import java.util.Observer;
 import java.util.Scanner;
 
 import controleur.Controleur;
-import modele.Demarrage;
+import modele.Questions;
 
 
 
 public class VueConsole extends Vue implements Observer {
 	protected Scanner sc;
 	
-	public VueConsole(Demarrage modele,
+	public VueConsole(Questions modele,
 			Controleur controleur) {
 		super(modele, controleur);
 		update(null, null);
@@ -22,8 +22,7 @@ public class VueConsole extends Vue implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		affiche(modele.avance[modele.question]);
-		printHelp();
+		System.out.println(modele);
 	}
 	
 

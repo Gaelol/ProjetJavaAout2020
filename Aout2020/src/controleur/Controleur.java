@@ -1,12 +1,12 @@
 package controleur;
 
-import modele.Demarrage;
+import modele.Questions;
 import vue.Vue;
 
 public class Controleur {
-	Demarrage modele; 
+	Questions modele; 
 	Vue vue;
-	public Controleur( Demarrage modele) {
+	public Controleur( Questions modele) {
 		this.modele = modele;
 	}
  
@@ -14,7 +14,10 @@ public class Controleur {
 		if(modele.Demarre(rep)) {
 			
 			modele.question +=1;
-			vue.affiche(modele.avance[modele.question]);
+			vue.affiche(modele.toString() + modele.question);
+			
+		}
+		else{
 			
 		}
 	}

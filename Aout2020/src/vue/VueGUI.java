@@ -21,7 +21,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import controleur.Controleur;
-import modele.Demarrage;
+import modele.Questions;
 
 public class VueGUI extends Vue implements ActionListener {
 	private JFrame frame;
@@ -33,7 +33,7 @@ public class VueGUI extends Vue implements ActionListener {
 	private String rep;
 	
 	
-		public VueGUI(Demarrage modele, Controleur controleur,int posX, int posY) {
+		public VueGUI(Questions modele, Controleur controleur,int posX, int posY) {
 			super(modele, controleur);
 			
 			//JLAbel
@@ -46,6 +46,8 @@ public class VueGUI extends Vue implements ActionListener {
 		    frame.setResizable(false);
 		    frame.setSize(1300,900);
 		    frame.setVisible(true);
+		    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		    
 		    
 		    //Layout
 		    Container container = frame.getContentPane();
@@ -132,8 +134,7 @@ public class VueGUI extends Vue implements ActionListener {
 
 		@Override
 		public void update(Observable arg0, Object arg1) {
-			affiche(modele.avance[modele.question]);
-			frame.pack();
+			affiche(modele.toString());
 		}
 
 		@Override
