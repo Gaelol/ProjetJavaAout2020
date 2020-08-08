@@ -1,7 +1,7 @@
 package test;
 
 	import controleur.Controleur;
-import modele.Questions;
+import modele.Quizz;
 import vue.VueConsole;
 import vue.VueGUI;
 
@@ -10,7 +10,7 @@ import vue.VueGUI;
 			public MVC() {
 				//Création du modèle
 				
-				Questions que = new Questions();
+				Quizz que = new Quizz();
 
 				//Création des contrôleurs : Un pour chaque vue
 				//Chaque contrôleur doit avoir une référence vers le modèle pour pouvoir le commander

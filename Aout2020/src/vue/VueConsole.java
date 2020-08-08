@@ -4,15 +4,17 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Scanner;
 
+import javax.swing.JButton;
+
 import controleur.Controleur;
-import modele.Questions;
+import modele.Quizz;
 
 
 
 public class VueConsole extends Vue implements Observer {
 	protected Scanner sc;
 	
-	public VueConsole(Questions modele,
+	public VueConsole(Quizz modele,
 			Controleur controleur) {
 		super(modele, controleur);
 		update(null, null);
@@ -25,17 +27,13 @@ public class VueConsole extends Vue implements Observer {
 		System.out.println(modele);
 	}
 	
-
-	private void printHelp(){
-		affiche("Réponse à la question : ");
-	}
 	
 	private class ReadInput implements Runnable{
 		public void run() {
 			while(true){
 				try{
 					String rep = sc.next();
-						controleur.next(rep);
+					controleur.next(rep);
 				}
 				catch(InputMismatchException e) {
 					System.out.println("Réponse érronée, veuillez réessayer!");
@@ -48,4 +46,9 @@ public class VueConsole extends Vue implements Observer {
 	public void affiche(String str) {
 		System.out.println(str);
 		}
+
+	@Override
+	public void valideButton() {
+		// TODO Auto-generated method stub
+	}
 	}

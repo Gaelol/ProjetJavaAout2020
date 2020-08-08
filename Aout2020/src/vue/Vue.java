@@ -2,15 +2,17 @@ package vue;
 
 import java.util.Observer;
 
+import javax.swing.JButton;
+
 import controleur.Controleur;
-import modele.Questions;
+import modele.Quizz;
 
 public abstract class Vue implements Observer{
 	
-	protected Questions modele;
+	protected Quizz modele;
 	protected Controleur controleur;
 	
-	protected Vue(Questions modele,
+	protected Vue(Quizz modele,
 			Controleur controleur) {
 		this.modele = modele;
 		this.controleur = controleur;
@@ -18,4 +20,5 @@ public abstract class Vue implements Observer{
 	}
 
 	public abstract void affiche(String string) ;
+	public abstract void valideButton();
 }

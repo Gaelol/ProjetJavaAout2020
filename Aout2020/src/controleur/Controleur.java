@@ -1,29 +1,32 @@
 package controleur;
 
-import modele.Questions;
+import modele.Quizz;
 import vue.Vue;
 
 public class Controleur {
-	Questions modele; 
+	Quizz modele; 
 	Vue vue;
-	public Controleur( Questions modele) {
+	
+	public Controleur( Quizz modele) {
 		this.modele = modele;
 	}
  
 	public void next(String rep) {
+		
 		if(modele.Demarre(rep)) {
 			
-			modele.question +=1;
-			vue.affiche(modele.toString() + modele.question);
+			vue.valideButton();
+		}
+		
+		else {
 			
 		}
-		else{
-			
-		}
-	}
+	}	
 	
 	public void addView(Vue vue) {
+		
 		this.vue = vue;
+	
 	}
 
 }

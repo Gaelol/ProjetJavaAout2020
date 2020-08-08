@@ -8,10 +8,10 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.Observable;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,19 +21,18 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import controleur.Controleur;
-import modele.Questions;
+import modele.Quizz;
 
 public class VueGUI extends Vue implements ActionListener {
 	private JFrame frame;
 	private JLabel titre,label;
-	private JButton button;
 	private JPanel topPanel,midPanel,botPanel,sidePanel,valiPanel;
-	private JButton tf,button1,button2,button3,button4,button5,button6,button7,button8,button9,button10;
+	private JButton tf;
 	private JTextField reponse;
 	private String rep;
+	private ArrayList<JButton> buttons;
 	
-	
-		public VueGUI(Questions modele, Controleur controleur,int posX, int posY) {
+		public VueGUI(Quizz modele, Controleur controleur,int posX, int posY) {
 			super(modele, controleur);
 			
 			//JLAbel
@@ -81,32 +80,21 @@ public class VueGUI extends Vue implements ActionListener {
 		    botPanel.setBorder(new LineBorder(Color.black,2));
 		    
 		    //JButton
-		    button1 = new JButton("Question 1");
-		    button2 = new JButton("Question 2");
-		    button3 = new JButton("Question 3");
-		    button4 = new JButton("Question 4");
-		    button5 = new JButton("Question 5");
-		    button6 = new JButton("Question 6");
-		    button7 = new JButton("Question 7");
-		    button8 = new JButton("Question 8");
-		    button9 = new JButton("Question 9");
-		    button10 = new JButton("Question 10");
-		    valiPanel.add(button1);
-		    valiPanel.add(button2);
-		    valiPanel.add(button3);
-		    valiPanel.add(button4);
-		    valiPanel.add(button5);
-		    valiPanel.add(button6);
-		    valiPanel.add(button7);
-		    valiPanel.add(button8);
-		    valiPanel.add(button9);
-		    valiPanel.add(button10);
+		    buttons = new ArrayList<JButton>();
+		    for(int i = 0; i<10;i++) {
+		    buttons.add(new JButton("button"+i));
+		    buttons.get(i).setEnabled(true);
+		    valiPanel.add(buttons.get(i));
+		    }
+		  
 		    
 		    //Label Texte
-		    label = new JLabel(modele.avance[modele.question],SwingConstants.CENTER);
+		    label = new JLabel(modele.toString(),SwingConstants.CENTER);
 		    label.setFont(new Font("Courier New", Font.BOLD, 30));
 		    label.setOpaque(true);
 		    label.setBorder(new LineBorder(Color.black,2));
+			
+		    
 		   
 		    //Texte de la réponse
 		    reponse = new JTextField("",60);
@@ -124,12 +112,16 @@ public class VueGUI extends Vue implements ActionListener {
 		    botPanel.add(reponse);
 		    container.add(midPanel,BorderLayout.WEST);
 		    topPanel.add(titre);
-		    
+
 		   //Actions
 		    tf.addActionListener(this);
 		    
 		}
 		
+		public void valideButton() {
+			buttons.get(modele.question-1).setBackground(Color.BLUE);
+			buttons.get(modele.question-1).setEnabled(false);
+		}
 		
 
 		@Override
@@ -141,10 +133,17 @@ public class VueGUI extends Vue implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			Object source = e.getSource();
 			if(source==tf) {
-				
+				if(modele.question == 0) {
+					rep = reponse.getText();
+					controleur.next(rep);
+					
+					ImageIcon background = new ImageIcon("Yacht.jpg");
+					label.setIcon(background);
+				}
+				else {
 				rep = reponse.getText();
 				controleur.next(rep);
-				
+				}
 			}
 			
 		}
