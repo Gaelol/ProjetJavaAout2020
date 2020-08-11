@@ -2,8 +2,6 @@ package vue;
 
 import java.util.Observer;
 
-import javax.swing.JButton;
-
 import controleur.Controleur;
 import modele.Quizz;
 
@@ -20,5 +18,5 @@ public abstract class Vue implements Observer{
 	}
 
 	public abstract void affiche(String string) ;
-	public abstract void valideButton();
+	
 }

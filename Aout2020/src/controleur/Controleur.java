@@ -14,13 +14,9 @@ public class Controleur {
 	public void next(String rep) {
 		
 		if(modele.Demarre(rep)) {
-			
-			vue.valideButton();
+		
 		}
 		
-		else {
-			
-		}
 	}	
 	
 	public void addView(Vue vue) {

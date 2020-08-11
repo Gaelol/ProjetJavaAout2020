@@ -26,7 +26,7 @@ import modele.Quizz;
 public class VueGUI extends Vue implements ActionListener {
 	private JFrame frame;
 	private JLabel titre,label;
-	private JPanel topPanel,midPanel,botPanel,sidePanel,valiPanel;
+	private JPanel topPanel,midPanel,botPanel,valiPanel;
 	private JButton tf;
 	private JTextField reponse;
 	private String rep;
@@ -43,7 +43,7 @@ public class VueGUI extends Vue implements ActionListener {
 			//JFrame
 			frame = new JFrame("RiquiQuizz");
 		    frame.setResizable(false);
-		    frame.setSize(1300,900);
+		    frame.setSize(1300,1000);
 		    frame.setVisible(true);
 		    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		    
@@ -82,8 +82,8 @@ public class VueGUI extends Vue implements ActionListener {
 		    //JButton
 		    buttons = new ArrayList<JButton>();
 		    for(int i = 0; i<10;i++) {
-		    buttons.add(new JButton("button"+i));
-		    buttons.get(i).setEnabled(true);
+		    buttons.add(new JButton("Question "+ (i+1)));
+		    buttons.get(i).setEnabled(false);
 		    valiPanel.add(buttons.get(i));
 		    }
 		  
@@ -118,39 +118,33 @@ public class VueGUI extends Vue implements ActionListener {
 		    
 		}
 		
-		public void valideButton() {
-			buttons.get(modele.question-1).setBackground(Color.BLUE);
-			buttons.get(modele.question-1).setEnabled(false);
-		}
-		
 
 		@Override
 		public void update(Observable arg0, Object arg1) {
 			affiche(modele.toString());
+			if(modele.question == 2) {
+				label.setText(null);
+				label.setIcon(new ImageIcon(VueGUI.class.getResource("/img/Yacht.jpg")));
+			}
+			if(modele.question == 3) {
+				label.setIcon(null);
+			}
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			Object source = e.getSource();
 			if(source==tf) {
-				if(modele.question == 0) {
-					rep = reponse.getText();
-					controleur.next(rep);
-					
-					ImageIcon background = new ImageIcon("Yacht.jpg");
-					label.setIcon(background);
-				}
-				else {
 				rep = reponse.getText();
 				controleur.next(rep);
 				}
-			}
 			
 		}
 
 		@Override
 		public void affiche(String string) {
 			label.setText(string);
+			buttons.get(modele.question-1).setBackground(Color.BLUE);
 		}
 		
 }
