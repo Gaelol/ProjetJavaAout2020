@@ -21,22 +21,25 @@ public class VueConsole extends Vue implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		affiche(modele.toString() + modele.question);
+		
+		System.out.println(modele.toString());
+		
 	}
 	
 	
 	private class ReadInput implements Runnable{
 		public void run() {
-			
+			while(true) {
 					String rep = sc.next();
 					controleur.next(rep);
-		
+			}
 			}
 		}
 	
 
 	@Override
 	public void affiche(String str) {
+		System.out.flush();
 		System.out.println(str);
 		}
 
