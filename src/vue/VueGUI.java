@@ -174,7 +174,7 @@ public class VueGUI extends Vue implements ActionListener {
 				  buttonReponse = buttons.get(2);
 				 }
 			
-			if(modele.question == 1) {
+			if(modele.question == 8) {
 				reponse.setEnabled(true);
 				Q8();
 			}
