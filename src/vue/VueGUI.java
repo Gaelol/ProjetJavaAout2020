@@ -18,6 +18,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,25 +26,26 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
 import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
 
 import controleur.Controleur;
 import modele.Quizz;
 
 public class VueGUI extends Vue implements ActionListener {
 	private JFrame frame;
-	private JLabel titre,label,labelQues;
-	private JPanel topPanel,midPanel,botPanel,valiPanel,panelQ6,panelQ8;
-	private JButton tf,button1,button2,button3,button4,button5,button6,buttonReponse;
+	private JLabel titre,label,labelQ9;
+	private JPanel topPanel,midPanel,botPanel,valiPanel,panelQ6,panelQ9,panelTestQ9;
+	private JButton tf,button1,button2,button3,button4,button5,button6,buttonReponse,q9un,q9deux,q9trois;
 	private JTextField reponse;
 	private String rep;
 	private ArrayList<JButton> buttons;
     private Clip clip; 
     private AudioInputStream audioInputStream;  
-    private static String filepath; 
     private Container container;
     private Font font;
-    
+    private int i1 = 0,i2 = 0,i3 = 0;
 		public VueGUI(Quizz modele, Controleur controleur,int posX, int posY) {
 			super(modele, controleur);
 			
@@ -106,19 +108,17 @@ public class VueGUI extends Vue implements ActionListener {
 		    //Label Texte
 		    label = new JLabel(modele.toString(),SwingConstants.CENTER);
 		    label.setFont(font);
-		    label.setOpaque(true);
 		    label.setBorder(new LineBorder(Color.black,2));
+		    labelQ9 = new JLabel();
+			labelQ9.setIcon(new ImageIcon(VueGUI.class.getResource("/img/Logique.jpg")));
 			
-		    labelQues = new JLabel(modele.toString(),SwingConstants.CENTER);
-		    labelQues.setFont(font);
-		   
-		    //Texte de la réponse
 		    reponse = new JTextField("",60);
 		    reponse.setFont(font);
 		    
 		    //JButton pour la réponse
 		    tf = new JButton("Répondre");
 		    tf.setFont(font);
+		    tf.setBackground(Color.LIGHT_GRAY);
 		    
 		    
 		    midPanel.add(valiPanel);
@@ -140,6 +140,8 @@ public class VueGUI extends Vue implements ActionListener {
 			affiche(modele.toString());
 			reponse.setText(null);
 			label.setIcon(null);
+			tf.setIcon(null);
+			tf.setText("Répondre");
 			
 			if(modele.question == 2) {
 				label.setText(null);
@@ -148,7 +150,7 @@ public class VueGUI extends Vue implements ActionListener {
 			
 			if(modele.question == 4) {
 				try {
-					SimpleAudioPlayer(filepath);
+					SimpleAudioPlayer("C:\\Users\\gael-\\git\\ProjetJavaAout2020\\Aout2020\\src\\img\\Queen.wav");
 				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
 					e.printStackTrace();
 				}
@@ -160,7 +162,7 @@ public class VueGUI extends Vue implements ActionListener {
 			
 			if(modele.question == 6) {
 				reponse.setEnabled(false);
-				Images();
+				Q6();
 			}
 			
 			if(modele.question == 7) {
@@ -175,8 +177,11 @@ public class VueGUI extends Vue implements ActionListener {
 				 }
 			
 			if(modele.question == 8) {
-				reponse.setEnabled(true);
 				Q8();
+			}
+			
+			if(modele.question == 1) {
+				Q9();
 			}
 			
 		}
@@ -184,7 +189,7 @@ public class VueGUI extends Vue implements ActionListener {
 		 public void SimpleAudioPlayer(String filepath) throws UnsupportedAudioFileException,IOException, LineUnavailableException  
 			    { 
 			        // create AudioInputStream object 
-			        audioInputStream = AudioSystem.getAudioInputStream(new File("C:\\Users\\gael-\\git\\ProjetJavaAout2020\\Aout2020\\src\\img\\Queen.wav").getAbsoluteFile()); 
+			        audioInputStream = AudioSystem.getAudioInputStream(new File(filepath).getAbsoluteFile()); 
 			          
 			        // create clip reference 
 			        clip = AudioSystem.getClip(); 
@@ -193,11 +198,14 @@ public class VueGUI extends Vue implements ActionListener {
 			        clip.open(audioInputStream); 
 			        
 			        clip.start();
+			        
 			    } 
-		 public void Images() {
+		 
+		 public void Q6() {
 			 label.setVisible(false);
 			 
 			 panelQ6 = new JPanel();
+			 
 			    panelQ6.setLayout(new GridLayout(0,2));
 			    panelQ6.setBorder(new LineBorder(Color.black,2));
 			    button1 = new JButton("");
@@ -224,35 +232,78 @@ public class VueGUI extends Vue implements ActionListener {
 			    button6.setIcon(new ImageIcon(VueGUI.class.getResource("/img/Mi2.jpg")));
 			    panelQ6.add(button6);
 			    button6.addActionListener(this);
+			    panelQ6.setBorder(BorderFactory.createTitledBorder(null, modele.toString(), TitledBorder.CENTER, TitledBorder.TOP,font));
 			    
-			    panelQ6.add(labelQues,BorderLayout.SOUTH);
 			    container.add(panelQ6,BorderLayout.CENTER);
 			 
 		 }
 		 
 		 public void Q8() {
-			 	label.setVisible(false);
-				
-				panelQ8 = new JPanel();
-				panelQ8.setLayout(new GridLayout());
-			    panelQ8.setBorder(new LineBorder(Color.black,2));
-			    container.add(panelQ8);
+			 label.setText(null);
+				label.setIcon(new ImageIcon(VueGUI.class.getResource("/img/Charlie.jpg")));
+				tf.setText("");
+				tf.setIcon(new ImageIcon(VueGUI.class.getResource("/img/butCharlie.jpg")));
+		 }
+		 
+		 public void Q9() {
+			label.setVisible(false);
+			panelTestQ9 = new JPanel();
+			panelTestQ9.setLayout(new GridLayout(2,0));
+			panelQ9 = new JPanel(); 
+			panelQ9.setLayout(new GridLayout(0,3));
+			q9un = new JButton(""+i1);
+			panelQ9.add(q9un);
+			q9un.addActionListener(this);
+			q9deux = new JButton(""+i2);
+			panelQ9.add(q9deux);
+			q9deux.addActionListener(this);
+			q9trois = new JButton(""+i3);
+			panelQ9.add(q9trois);
+			q9trois.addActionListener(this);
+			panelTestQ9.add(labelQ9);
+			panelTestQ9.add(panelQ9);
+			container.add(panelTestQ9);
+			reponse.setEnabled(false);
 		 }
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			Object source = e.getSource();
+			
 			if(source==tf) {
+				if(modele.question == 8) {
+					rep = "bouton";
+					controleur.next(rep);
+				}
+				if(modele.question == 9) {
+					rep =  ""+ i1 + i2 + i3 ;
+					controleur.next(rep);
+				}
+				else {
 				rep = reponse.getText();
 				controleur.next(rep);
 				}
+			}
 			if(source==button3) {
 				rep = "3";
 				controleur.next(rep);
 			}
+			
 			if(source== buttonReponse) {
 				rep ="question 3";
 				controleur.next(rep);
+			}
+			if(source==q9un) {
+				i1++;
+				q9un.setText(""+i1);
+			}
+			if(source==q9deux) {
+				i2++;
+				q9deux.setText(""+i2);
+			}
+			if(source==q9trois) {
+				i3++;
+				q9trois.setText(""+i3);
 			}
 			
 		}

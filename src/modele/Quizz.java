@@ -59,7 +59,7 @@ public class Quizz extends Observable{
 				this.notifyObservers();
 				return true;
 				
-			}
+			}return false;
 		}
 		
 		if(question == 4) {
@@ -70,7 +70,7 @@ public class Quizz extends Observable{
 				this.notifyObservers();
 				return true;
 				
-			}
+			}return false;
 		}
 		
 		if(question == 5) {
@@ -81,7 +81,7 @@ public class Quizz extends Observable{
 				this.notifyObservers();
 				return true;
 				
-			}
+			}return false;
 		}
 		
 		if(question == 6) {
@@ -91,7 +91,7 @@ public class Quizz extends Observable{
 				this.notifyObservers();
 				return true;
 				
-			}
+			}return false;
 		}
 		if(question == 7) {
 			if(rep.equals("question 3")) {
@@ -101,40 +101,28 @@ public class Quizz extends Observable{
 				this.notifyObservers();
 				return true;
 				
-			}
+			}return false;
 		}
 		if(question == 8) {
-			if(rep.equals("0")) {
+			if(rep.equals("bouton")) {
 				
 				question +=1;
 				this.setChanged();
 				this.notifyObservers();
 				return true;
 				
-			}
+			}return false;
 		}
 		if(question == 9) {
-			if(rep.equals("0")) {
+			if(rep.equals("079")) {
 				
 				question +=1;
 				this.setChanged();
 				this.notifyObservers();
 				return true;
 				
-			}
-		}
-		if(question == 10) {
-			if(rep.equals("0")) {
-				
-				question +=1;
-				this.setChanged();
-				this.notifyObservers();
-				return true;
-				
-			}
-		}
-		
-		return false;
+			}return false;
+		}return false;
 	}
 	
 	public void Perdus() {
