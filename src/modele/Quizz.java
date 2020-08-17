@@ -5,6 +5,7 @@ import java.util.Observable;
 public class Quizz extends Observable{
 	public int question = 0; 
 	public String[] avance = {
+			
 			"Complétez la suite : 0, 2, 5, 7, 8, 9, 11, ?",
 			"Donnez le seul mot masculin finnissant par 'ette'",
 			"Quel est l'écriture exact de ce mot ? 1)Yacht 2)Yaught 3)Yot 4)Yocht",
@@ -16,6 +17,7 @@ public class Quizz extends Observable{
 			"Où est Charlie?",
 			"Quel est le nombre manquant ?",
 			"Félicitations ! Merci d'avoir joué !"
+			
 			};
 	
 	public boolean Demarre(String rep) {
