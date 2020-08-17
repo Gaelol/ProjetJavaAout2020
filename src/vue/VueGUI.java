@@ -3,6 +3,7 @@ package vue;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -26,7 +27,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
@@ -35,7 +35,7 @@ import modele.Quizz;
 
 public class VueGUI extends Vue implements ActionListener {
 	private JFrame frame;
-	private JLabel titre,label,labelQ9;
+	private JLabel titre,label,labelQ9,resLabel;
 	private JPanel topPanel,midPanel,botPanel,valiPanel,panelQ6,panelQ9,panelTestQ9;
 	private JButton tf,button1,button2,button3,button4,button5,button6,buttonReponse,q9un,q9deux,q9trois;
 	private JTextField reponse;
@@ -46,6 +46,7 @@ public class VueGUI extends Vue implements ActionListener {
     private Container container;
     private Font font;
     private int i1 = 0,i2 = 0,i3 = 0;
+    
 		public VueGUI(Quizz modele, Controleur controleur,int posX, int posY) {
 			super(modele, controleur);
 			
@@ -75,7 +76,7 @@ public class VueGUI extends Vue implements ActionListener {
 		    topPanel = new JPanel();
 		    topPanel.setBorder(new LineBorder(Color.black,2));
 		    topPanel.setBackground(Color.white);
-		    topPanel.setLayout(new FlowLayout(3));
+		    topPanel.setLayout(new BorderLayout(2,0));
 		    container.add(topPanel,BorderLayout.NORTH);
 		    
 		    //Panel Gauche
@@ -103,15 +104,20 @@ public class VueGUI extends Vue implements ActionListener {
 		    buttons.get(i).setEnabled(false);
 		    valiPanel.add(buttons.get(i));
 		    }
-		  
+		    
+		    //Panel Résultats
+		    resLabel = new JLabel("",SwingConstants.RIGHT);
+		    resLabel.setFont(font);
+		    resLabel.setBorder(new LineBorder(Color.black,2));
+		    
 		    
 		    //Label Texte
 		    label = new JLabel(modele.toString(),SwingConstants.CENTER);
 		    label.setFont(font);
 		    label.setBorder(new LineBorder(Color.black,2));
-		    labelQ9 = new JLabel();
+		    labelQ9 = new JLabel("",SwingConstants.CENTER);
 			labelQ9.setIcon(new ImageIcon(VueGUI.class.getResource("/img/Logique.jpg")));
-			
+		
 		    reponse = new JTextField("",60);
 		    reponse.setFont(font);
 		    
@@ -119,6 +125,7 @@ public class VueGUI extends Vue implements ActionListener {
 		    tf = new JButton("Répondre");
 		    tf.setFont(font);
 		    tf.setBackground(Color.LIGHT_GRAY);
+		    tf.setPreferredSize(new Dimension(180, 40));
 		    
 		    
 		    midPanel.add(valiPanel);
@@ -127,21 +134,29 @@ public class VueGUI extends Vue implements ActionListener {
 		    botPanel.add(tf);
 		    botPanel.add(reponse);
 		    container.add(midPanel,BorderLayout.WEST);
-		    topPanel.add(titre);
+		    topPanel.add(titre,BorderLayout.WEST);
+		    topPanel.add(resLabel,BorderLayout.EAST);
 
 		   //Actions
 		    tf.addActionListener(this);
 		    
 		}
 		
-
-		@Override
-		public void update(Observable arg0, Object arg1) {
+		public void updateCont(){
 			affiche(modele.toString());
 			reponse.setText(null);
 			label.setIcon(null);
 			tf.setIcon(null);
 			tf.setText("Répondre");
+			if(modele.question > 0) {
+				buttons.get(modele.question-1).setBackground(Color.BLUE);
+			}
+			resLabel.setText("");
+		}
+
+		@Override
+		public void update(Observable arg0, Object arg1) {
+			updateCont();
 			
 			if(modele.question == 2) {
 				label.setText(null);
@@ -180,10 +195,9 @@ public class VueGUI extends Vue implements ActionListener {
 				Q8();
 			}
 			
-			if(modele.question == 1) {
+			if(modele.question == 9) {
 				Q9();
 			}
-			
 		}
 
 		 public void SimpleAudioPlayer(String filepath) throws UnsupportedAudioFileException,IOException, LineUnavailableException  
@@ -233,16 +247,19 @@ public class VueGUI extends Vue implements ActionListener {
 			    panelQ6.add(button6);
 			    button6.addActionListener(this);
 			    panelQ6.setBorder(BorderFactory.createTitledBorder(null, modele.toString(), TitledBorder.CENTER, TitledBorder.TOP,font));
-			    
+			   
 			    container.add(panelQ6,BorderLayout.CENTER);
 			 
 		 }
 		 
 		 public void Q8() {
-			 label.setText(null);
+			 
+			 	label.setText(null);
 				label.setIcon(new ImageIcon(VueGUI.class.getResource("/img/Charlie.jpg")));
 				tf.setText("");
 				tf.setIcon(new ImageIcon(VueGUI.class.getResource("/img/butCharlie.jpg")));
+				label.setBorder(BorderFactory.createTitledBorder(null, modele.toString(), TitledBorder.CENTER, TitledBorder.TOP,font));
+				
 		 }
 		 
 		 public void Q9() {
@@ -263,22 +280,24 @@ public class VueGUI extends Vue implements ActionListener {
 			panelTestQ9.add(labelQ9);
 			panelTestQ9.add(panelQ9);
 			container.add(panelTestQ9);
+			panelTestQ9.setBorder(BorderFactory.createTitledBorder(null, modele.toString(), TitledBorder.CENTER, TitledBorder.TOP,font));
 			reponse.setEnabled(false);
 		 }
-		
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			Object source = e.getSource();
 			
 			if(source==tf) {
+				if(modele.question == 9) {
+					rep =  ""+ i1 +""+ i2 +""+ i3 ;
+					controleur.next(rep);
+				}
 				if(modele.question == 8) {
 					rep = "bouton";
 					controleur.next(rep);
 				}
-				if(modele.question == 9) {
-					rep =  ""+ i1 + i2 + i3 ;
-					controleur.next(rep);
-				}
+				
 				else {
 				rep = reponse.getText();
 				controleur.next(rep);
@@ -293,16 +312,32 @@ public class VueGUI extends Vue implements ActionListener {
 				rep ="question 3";
 				controleur.next(rep);
 			}
+			
 			if(source==q9un) {
+				if(i1<9) {
 				i1++;
+				}
+				else{
+					i1=0;
+					}
 				q9un.setText(""+i1);
 			}
 			if(source==q9deux) {
-				i2++;
+				if(i2<9) {
+					i2++;
+					}
+					else{
+						i2=0;
+						}
 				q9deux.setText(""+i2);
 			}
 			if(source==q9trois) {
-				i3++;
+				if(i3<9) {
+					i3++;
+					}
+					else{
+						i3=0;
+						}
 				q9trois.setText(""+i3);
 			}
 			
@@ -311,12 +346,9 @@ public class VueGUI extends Vue implements ActionListener {
 		@Override
 		public void affiche(String string) {
 			label.setText(string);
-			if(modele.question > 0) {
-				buttons.get(modele.question-1).setBackground(Color.BLUE);
-			}
-			else {
-				
-			}
+		}
+		public void resultats() {
+			resLabel.setText("Faux! Réessayez");
 		}
 		
 }

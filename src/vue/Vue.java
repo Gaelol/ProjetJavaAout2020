@@ -18,5 +18,6 @@ public abstract class Vue implements Observer{
 	}
 
 	public abstract void affiche(String string) ;
+	public abstract void resultats();
 	
 }

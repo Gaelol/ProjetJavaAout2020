@@ -1,6 +1,7 @@
 package test;
 
 	import controleur.Controleur;
+
 import modele.Quizz;
 import vue.VueConsole;
 import vue.VueGUI;
@@ -22,7 +23,7 @@ import vue.VueGUI;
 				//Chaque vue doit connaître son contrôleur et avoir une référence vers le modèle pour pouvoir l'observer
 				
 				VueConsole console = new VueConsole(que, consoleControleur);
-				VueGUI gui = new VueGUI(que, guiControleur, 100, 100);
+				VueGUI gui = new VueGUI(que, guiControleur, 200, 100);
 				
 				//On donne la référence à la vue pour chaque contrôleur
 				

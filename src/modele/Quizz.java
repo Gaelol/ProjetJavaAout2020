@@ -8,14 +8,14 @@ public class Quizz extends Observable{
 			"Complétez la suite : 0, 2, 5, 7, 8, 9, 11, ?",
 			"Donnez le seul mot masculin finnissant par 'ette'",
 			"Quel est l'écriture exact de ce mot ? 1)Yacht 2)Yaught 3)Yot 4)Yocht",
-			"Vrai ou Faux ? Il y a plus d'eau que de terre sur notre planète?",
+			"Vrai/Faux ? Il y a plus d'eau que de terre sur la planète?",
 			"Quel est l'artiste de cette chanson?",
-			"Complétez cette célèbre phrase : L'homme est un ... pour l'homme.",
-			"Cliquez sur le ré",
+			"Complétez cette phrase : L'homme est un ... pour l'homme.",
+			"Quelle est la corde de Ré?",
 			"A quelle question parle-t-on d'un bateau?",
-			"ntm",
-			"slt",
-			"terrible"
+			"Où est Charlie?",
+			"Quel est le nombre manquant ?",
+			"Félicitations ! Merci d'avoir joué !"
 			};
 	
 	public boolean Demarre(String rep) {
@@ -114,7 +114,7 @@ public class Quizz extends Observable{
 			}return false;
 		}
 		if(question == 9) {
-			if(rep.equals("079")) {
+			if(rep.equals("79")) {
 				
 				question +=1;
 				this.setChanged();
@@ -124,12 +124,7 @@ public class Quizz extends Observable{
 			}return false;
 		}return false;
 	}
-	
-	public void Perdus() {
-		question = 0 ;
-		this.setChanged();
-		this.notifyObservers();
-	}
+
 	
 	public String toString(){
 		return question+1 +") " + avance[question] ; 

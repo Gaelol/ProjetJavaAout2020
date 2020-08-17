@@ -22,7 +22,7 @@ public class VueConsole extends Vue implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		
-		System.out.println(modele.toString());
+		affiche(modele.toString());
 		
 	}
 	
@@ -41,6 +41,10 @@ public class VueConsole extends Vue implements Observer {
 	public void affiche(String str) {
 		System.out.flush();
 		System.out.println(str);
+		resultats();
 		}
-
+	
+	public void resultats() {
+		System.out.println("Faux!");
+		}
 	}

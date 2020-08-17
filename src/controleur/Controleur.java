@@ -12,13 +12,12 @@ public class Controleur {
 	}
  
 	public void next(String rep) {
-		if(modele.Demarre(rep) == true) {
-		
+		if(modele.Demarre(rep)) {
+			
 		}
 		else {
-			modele.Perdus();
+			vue.resultats();
 		}
-		
 	}	
 	
 	public void addView(Vue vue) {
