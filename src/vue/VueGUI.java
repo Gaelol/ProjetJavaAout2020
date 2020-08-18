@@ -33,20 +33,46 @@ import javax.swing.border.TitledBorder;
 import controleur.Controleur;
 import modele.Quizz;
 
+/**
+ * The Class VueGUI.
+ *
+ * @author gael-
+ */
 public class VueGUI extends Vue implements ActionListener {
+	
+	
 	private JFrame frame;
+	
 	private JLabel titre,label,labelQ9,resLabel;
+
 	private JPanel topPanel,midPanel,botPanel,valiPanel,panelQ6,panelQ9,panelTestQ9;
-	private JButton tf,button1,button2,button3,button4,button5,button6,buttonReponse,q9un,q9deux,q9trois;
+	
+	private JButton repondre,button1,button2,button3,button4,button5,button6,buttonReponse,q9un,q9deux,q9trois;
+	
 	private JTextField reponse;
+	
 	private String rep;
+	
 	private ArrayList<JButton> buttons;
-    private Clip clip; 
-    private AudioInputStream audioInputStream;  
-    private Container container;
-    private Font font;
-    private int i1 = 0,i2 = 0,i3 = 0;
     
+    private Clip clip; 
+    
+    private AudioInputStream audioInputStream;  
+    
+    private Container container;
+    
+    private Font font;
+    
+    private int int1 = 0,int2 = 0,int3 = 0;
+    
+		/**
+		 * Instantiates a new vue GUI.
+		 *
+		 * @param modele the modele
+		 * @param controleur the controleur
+		 * @param posX the pos X
+		 * @param posY the pos Y
+		 */
 		public VueGUI(Quizz modele, Controleur controleur,int posX, int posY) {
 			super(modele, controleur);
 			
@@ -76,7 +102,6 @@ public class VueGUI extends Vue implements ActionListener {
 		    topPanel = new JPanel();
 		    topPanel.setBorder(new LineBorder(Color.black,2));
 		    topPanel.setBackground(Color.white);
-		    topPanel.setLayout(new BorderLayout(2,0));
 		    container.add(topPanel,BorderLayout.NORTH);
 		    
 		    //Panel Gauche
@@ -105,11 +130,6 @@ public class VueGUI extends Vue implements ActionListener {
 		    valiPanel.add(buttons.get(i));
 		    }
 		    
-		    //Panel Résultats
-		    resLabel = new JLabel("",SwingConstants.RIGHT);
-		    resLabel.setFont(font);
-		    resLabel.setBorder(new LineBorder(Color.black,2));
-		    
 		    
 		    //Label Texte
 		    label = new JLabel(modele.toString(),SwingConstants.CENTER);
@@ -122,65 +142,73 @@ public class VueGUI extends Vue implements ActionListener {
 		    reponse.setFont(font);
 		    
 		    //JButton pour la réponse
-		    tf = new JButton("Répondre");
-		    tf.setFont(font);
-		    tf.setBackground(Color.LIGHT_GRAY);
-		    tf.setPreferredSize(new Dimension(180, 40));
+		    repondre = new JButton("Répondre");
+		    repondre.setFont(font);
+		    repondre.setBackground(Color.LIGHT_GRAY);
+		    repondre.setPreferredSize(new Dimension(180, 40));
 		    
 		    
 		    midPanel.add(valiPanel);
 		    container.add(label,BorderLayout.CENTER);
 		    container.add(botPanel,BorderLayout.SOUTH);
-		    botPanel.add(tf);
+		    botPanel.add(repondre);
 		    botPanel.add(reponse);
 		    container.add(midPanel,BorderLayout.WEST);
-		    topPanel.add(titre,BorderLayout.WEST);
-		    topPanel.add(resLabel,BorderLayout.EAST);
+		    topPanel.add(titre);
 
 		   //Actions
-		    tf.addActionListener(this);
+		    repondre.addActionListener(this);
 		    
 		}
 		
+		/**
+		 * Update cont.
+		 */
 		public void updateCont(){
 			affiche(modele.toString());
 			reponse.setText(null);
 			label.setIcon(null);
-			tf.setIcon(null);
-			tf.setText("Répondre");
-			if(modele.question > 0) {
-				buttons.get(modele.question-1).setBackground(Color.BLUE);
+			repondre.setIcon(null);
+			repondre.setText("Répondre");
+			if(modele.numQuestion > 0) {
+				buttons.get(modele.numQuestion-1).setBackground(Color.BLUE);
 			}
-			resLabel.setText("");
 		}
-
+		
+		/**
+		 * Update.
+		 *
+		 * @param arg0 the arg 0
+		 * @param arg1 the arg 1
+		 */
+		
 		@Override
 		public void update(Observable arg0, Object arg1) {
-			updateCont();
+			updateCont();	
 			
-			if(modele.question == 2) {
+			if(modele.numQuestion == 2) {
 				label.setText(null);
 				label.setIcon(new ImageIcon(VueGUI.class.getResource("/img/Yacht.jpg")));
 			}
 			
-			if(modele.question == 4) {
+			if(modele.numQuestion == 4) {
 				try {
-					SimpleAudioPlayer("C:\\Users\\gael-\\git\\ProjetJavaAout2020\\Aout2020\\src\\img\\Queen.wav");
+					SoundPlayer("C:\\Users\\gael-\\git\\ProjetJavaAout2020\\Aout2020\\src\\img\\Queen.wav");
 				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
 					e.printStackTrace();
 				}
 			}
 			
-			if(modele.question == 5) {
+			if(modele.numQuestion == 5) {
 				clip.stop();
 			}
 			
-			if(modele.question == 6) {
+			if(modele.numQuestion == 6) {
 				reponse.setEnabled(false);
 				Q6();
 			}
 			
-			if(modele.question == 7) {
+			if(modele.numQuestion == 7) {
 				panelQ6.setVisible(false);
 				label.setVisible(true);
 				reponse.setEnabled(false);
@@ -191,16 +219,29 @@ public class VueGUI extends Vue implements ActionListener {
 				  buttonReponse = buttons.get(2);
 				 }
 			
-			if(modele.question == 8) {
+			if(modele.numQuestion == 8) {
 				Q8();
 			}
 			
-			if(modele.question == 9) {
+			if(modele.numQuestion == 9) {
 				Q9();
+			}
+			if(modele.numQuestion==10) {
+				panelTestQ9.setVisible(false);
+				label.setVisible(true);
+				label.setBorder(null);
 			}
 		}
 
-		 public void SimpleAudioPlayer(String filepath) throws UnsupportedAudioFileException,IOException, LineUnavailableException  
+		 /**
+ 		 * Simple audio player.
+ 		 *
+ 		 * @param filepath the filepath
+ 		 * @throws UnsupportedAudioFileException the unsupported audio file exception
+ 		 * @throws IOException Signals that an I/O exception has occurred.
+ 		 * @throws LineUnavailableException the line unavailable exception
+ 		 */
+ 		public void SoundPlayer(String filepath) throws UnsupportedAudioFileException,IOException, LineUnavailableException  
 			    { 
 			        // create AudioInputStream object 
 			        audioInputStream = AudioSystem.getAudioInputStream(new File(filepath).getAbsoluteFile()); 
@@ -215,7 +256,10 @@ public class VueGUI extends Vue implements ActionListener {
 			        
 			    } 
 		 
-		 public void Q6() {
+		 /**
+ 		 * Q6.
+ 		 */
+ 		public void Q6() {
 			 label.setVisible(false);
 			 
 			 panelQ6 = new JPanel();
@@ -252,29 +296,35 @@ public class VueGUI extends Vue implements ActionListener {
 			 
 		 }
 		 
-		 public void Q8() {
+		 /**
+ 		 * Q8.
+ 		 */
+ 		public void Q8() {
 			 
 			 	label.setText(null);
 				label.setIcon(new ImageIcon(VueGUI.class.getResource("/img/Charlie.jpg")));
-				tf.setText("");
-				tf.setIcon(new ImageIcon(VueGUI.class.getResource("/img/butCharlie.jpg")));
+				repondre.setText("");
+				repondre.setIcon(new ImageIcon(VueGUI.class.getResource("/img/butCharlie.jpg")));
 				label.setBorder(BorderFactory.createTitledBorder(null, modele.toString(), TitledBorder.CENTER, TitledBorder.TOP,font));
 				
 		 }
 		 
-		 public void Q9() {
+		 /**
+ 		 * Q9.
+ 		 */
+ 		public void Q9() {
 			label.setVisible(false);
 			panelTestQ9 = new JPanel();
 			panelTestQ9.setLayout(new GridLayout(2,0));
 			panelQ9 = new JPanel(); 
 			panelQ9.setLayout(new GridLayout(0,3));
-			q9un = new JButton(""+i1);
+			q9un = new JButton(""+int1);
 			panelQ9.add(q9un);
 			q9un.addActionListener(this);
-			q9deux = new JButton(""+i2);
+			q9deux = new JButton(""+int2);
 			panelQ9.add(q9deux);
 			q9deux.addActionListener(this);
-			q9trois = new JButton(""+i3);
+			q9trois = new JButton(""+int3);
 			panelQ9.add(q9trois);
 			q9trois.addActionListener(this);
 			panelTestQ9.add(labelQ9);
@@ -284,16 +334,21 @@ public class VueGUI extends Vue implements ActionListener {
 			reponse.setEnabled(false);
 		 }
 
+		/**
+		 * Action performed.
+		 *
+		 * @param e the e
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			Object source = e.getSource();
 			
-			if(source==tf) {
-				if(modele.question == 9) {
-					rep =  ""+ i1 +""+ i2 +""+ i3 ;
+			if(source==repondre) {
+				if(modele.numQuestion == 9) {
+					rep =  ""+ int1 + int2 + int3 ;
 					controleur.next(rep);
 				}
-				if(modele.question == 8) {
+				if(modele.numQuestion == 8) {
 					rep = "bouton";
 					controleur.next(rep);
 				}
@@ -314,39 +369,48 @@ public class VueGUI extends Vue implements ActionListener {
 			}
 			
 			if(source==q9un) {
-				if(i1<9) {
-				i1++;
+				if(int1<9) {
+				int1++;
 				}
 				else{
-					i1=0;
+					int1=0;
 					}
-				q9un.setText(""+i1);
+				q9un.setText(""+int1);
 			}
 			if(source==q9deux) {
-				if(i2<9) {
-					i2++;
+				if(int2<9) {
+					int2++;
 					}
 					else{
-						i2=0;
+						int2=0;
 						}
-				q9deux.setText(""+i2);
+				q9deux.setText(""+int2);
 			}
 			if(source==q9trois) {
-				if(i3<9) {
-					i3++;
+				if(int3<9) {
+					int3++;
 					}
 					else{
-						i3=0;
+						int3=0;
 						}
-				q9trois.setText(""+i3);
+				q9trois.setText(""+int3);
 			}
 			
 		}
 
+		/**
+		 * Affiche.
+		 *
+		 * @param string the string
+		 */
 		@Override
 		public void affiche(String string) {
 			label.setText(string);
 		}
+		
+		/**
+		 * Resultats.
+		 */
 		public void resultats() {
 			resLabel.setText("Faux! Réessayez");
 		}

@@ -2,9 +2,20 @@ package modele;
 
 import java.util.Observable;
 
+// TODO: Auto-generated Javadoc
+/**
+ * La classe Quizz, le modèle du projet.
+ * 
+ * @author gael-
+ */
+
 public class Quizz extends Observable{
-	public int question = 0; 
-	public String[] avance = {
+	
+	/** The num question. */
+	public int numQuestion = 0; 
+	
+	/** The questions. */
+	public String[] questions = {
 			
 			"Complétez la suite : 0, 2, 5, 7, 8, 9, 11, ?",
 			"Donnez le seul mot masculin finnissant par 'ette'",
@@ -19,13 +30,61 @@ public class Quizz extends Observable{
 			"Félicitations ! Merci d'avoir joué !"
 			
 			};
-	
+		
+	/**
+	 * Getter sur le int numQuestion.
+	 *
+	 * @return numQuestion
+	 */
+	public int getNumQuestion() {
+		return numQuestion;
+	}
+
+
+	/**
+	 * Setter sur le int question.
+	 *
+	 * @param numQuestion le numéro de la question
+	 */
+	public void setNumQuestion(int numQuestion) {
+		this.numQuestion = numQuestion;
+	}
+
+
+	/**
+	 * Getter sur le tableau de String questions.
+	 *
+	 * @return questions
+	 */
+	public String[] getQuestions() {
+		return questions;
+	}
+
+
+	/**
+	 * Setter sur le tableau de String questions
+	 *
+	 * @param questions le texte de la question
+	 */
+	public void setQuestions(String[] questions) {
+		this.questions = questions;
+	}
+
+
+	/**
+	 * Cette méthode reçoit un string représentant la réponse à la question posée du quizz. En fonction
+	 * de la question à laquelle on se trouve(vérifié par des if) on vérifie que le string est similaire à 
+	 * une partie de la réponse souhaitée.
+	 *
+	 * @param rep la reponse envoyé par l'utilisateur
+	 * @return boolean
+	 */
 	public boolean Demarre(String rep) {
 		rep = rep.toLowerCase();
-		if(question == 0) {
+		if(numQuestion == 0) {
 			if(rep.contains("100")) {
 				
-				question +=1;
+				numQuestion +=1;
 				this.setChanged();
 				this.notifyObservers();
 				return true;
@@ -33,30 +92,30 @@ public class Quizz extends Observable{
 			}return false;
 			
 		}
-		if(question == 1) {
+		if(numQuestion == 1) {
 			if(rep.contains("squelette")) {
 				
-				question +=1;
+				numQuestion +=1;
 				this.setChanged();
 				this.notifyObservers();
 				return true; 
 			}return false;
 			
 		}
-		if(question == 2) {
+		if(numQuestion == 2) {
 			if(rep.contains("1")) {
 				
-				question +=1;
+				numQuestion +=1;
 				this.setChanged();
 				this.notifyObservers();
 				return true;
 				
 			}return false;
 		}
-		if(question == 3) {
+		if(numQuestion == 3) {
 			if(rep.contains("faux")) {
 				
-				question +=1;
+				numQuestion +=1;
 				this.setChanged();
 				this.notifyObservers();
 				return true;
@@ -64,10 +123,10 @@ public class Quizz extends Observable{
 			}return false;
 		}
 		
-		if(question == 4) {
+		if(numQuestion == 4) {
 			if(rep.contains("queen")) {
 				
-				question +=1;
+				numQuestion +=1;
 				this.setChanged();
 				this.notifyObservers();
 				return true;
@@ -75,10 +134,10 @@ public class Quizz extends Observable{
 			}return false;
 		}
 		
-		if(question == 5) {
+		if(numQuestion == 5) {
 			if(rep.contains("loup")) {
 				
-				question +=1;
+				numQuestion +=1;
 				this.setChanged();
 				this.notifyObservers();
 				return true;
@@ -86,39 +145,39 @@ public class Quizz extends Observable{
 			}return false;
 		}
 		
-		if(question == 6) {
+		if(numQuestion == 6) {
 			if(rep.contains("3")) {
-				question +=1;
+				numQuestion +=1;
 				this.setChanged();
 				this.notifyObservers();
 				return true;
 				
 			}return false;
 		}
-		if(question == 7) {
-			if(rep.equals("question 3")) {
+		if(numQuestion == 7) {
+			if(rep.contains("3")) {
 				
-				question +=1;
+				numQuestion +=1;
 				this.setChanged();
 				this.notifyObservers();
 				return true;
 				
 			}return false;
 		}
-		if(question == 8) {
-			if(rep.equals("bouton")) {
+		if(numQuestion == 8) {
+			if(rep.contains("bouton")) {
 				
-				question +=1;
+				numQuestion +=1;
 				this.setChanged();
 				this.notifyObservers();
 				return true;
 				
 			}return false;
 		}
-		if(question == 9) {
-			if(rep.equals("79")) {
+		if(numQuestion == 9) {
+			if(rep.contains("79")) {
 				
-				question +=1;
+				numQuestion +=1;
 				this.setChanged();
 				this.notifyObservers();
 				return true;
@@ -128,8 +187,13 @@ public class Quizz extends Observable{
 	}
 
 	
+	/**
+	 * Mise en texte des questions.
+	 *
+	 * @return string numéro + question
+	 */
 	public String toString(){
-		return question+1 +") " + avance[question] ; 
+		return numQuestion+1 +") " + questions[numQuestion] ; 
 		
 	}
 }

@@ -7,10 +7,20 @@ import controleur.Controleur;
 import modele.Quizz;
 
 
-
+/**
+ * La classe VueConsole.
+ *
+ * @author gael-
+ */
 public class VueConsole extends Vue implements Observer {
 	protected Scanner sc;
 	
+	/**
+	 * Instancie une nouvelle Vue Console.
+	 *
+	 * @param modele     the modele
+	 * @param controleur the controleur
+	 */
 	public VueConsole(Quizz modele,
 			Controleur controleur) {
 		super(modele, controleur);
@@ -19,6 +29,10 @@ public class VueConsole extends Vue implements Observer {
 		new Thread (new ReadInput()).start();	
 	}
 
+	/**
+	 * Rafraichit l'affichage.
+	 *
+	 */
 	@Override
 	public void update(Observable o, Object arg) {
 		
@@ -27,7 +41,11 @@ public class VueConsole extends Vue implements Observer {
 	}
 	
 	
+	/**
+	 * Classe permettant de récupérer la ligne insérer dans la console.
+	 */
 	private class ReadInput implements Runnable{
+		
 		public void run() {
 			while(true) {
 					String rep = sc.next();
@@ -36,15 +54,15 @@ public class VueConsole extends Vue implements Observer {
 			}
 		}
 	
-
+	/**
+	 * Reçoit une string et l'affiche en console.
+	 *
+	 * @param str the str
+	 */
 	@Override
 	public void affiche(String str) {
-		System.out.flush();
+		
 		System.out.println(str);
-		resultats();
-		}
-	
-	public void resultats() {
-		System.out.println("Faux!");
+
 		}
 	}
