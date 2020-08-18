@@ -43,7 +43,7 @@ public class VueGUI extends Vue implements ActionListener {
 	
 	private JFrame frame;
 	
-	private JLabel titre,label,labelQ9,resLabel;
+	private JLabel titre,label,labelQ9;
 
 	private JPanel topPanel,midPanel,botPanel,valiPanel,panelQ6,panelQ9,panelTestQ9;
 	
@@ -399,20 +399,12 @@ public class VueGUI extends Vue implements ActionListener {
 		}
 
 		/**
-		 * Affiche.
+		 * Affiche l'information principale.
 		 *
 		 * @param string the string
 		 */
 		@Override
 		public void affiche(String string) {
 			label.setText(string);
-		}
-		
-		/**
-		 * Resultats.
-		 */
-		public void resultats() {
-			resLabel.setText("Faux! Réessayez");
-		}
-		
+		}	
 }
